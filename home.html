@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: black;
+        }
+        video {
+            height:100%;
+            width: 100%;
+        }
+
+        button {
+            position: fixed;
+            bottom: 30px;
+            left: 20px;
+
+            height: 100px;
+            width: 100px;
+            border-radius: 20px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+
+            cursor: pointer;
+        }
+
+        button#next{
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <video id="vid" src="https://ayandas-96rev.github.io/temp/fried.mp4"></video>
+    <button class="play-button" id="play">Play</button>
+    
+    <button class="next-button" id="next">Continue fun</button>
+
+
+    <script>
+        const v = document.getElementById('vid');
+        const playButton = document.getElementById("play");
+        const nextButton = document.getElementById("next");
+        let int;
+
+        playButton.addEventListener("click", ()=>{
+            if(v.paused) {
+                v.play();
+                playButton.innerText="Pause";
+
+                int = setTimeout(()=>{
+                    nextButton.style.visibility = 'visible';
+                    
+                    nextButton.addEventListener('click', ()=> {
+                        nextButton.style.visibility = 'hidden';
+                        setTimeout(()=>{
+                            v.src = 'https://ayandas-96rev.github.io/temp/chandal.mp4'
+                            v.play();
+                        }, (v.duration - v.currentTime)*1000);
+                    });
+                },((v.duration-10) - v.currentTime)*1000);
+            }
+            else {
+                v.pause();
+                clearTimeout(int);
+                playButton.innerText="Play";
+            }
+        })
+        
+        
+    </script>
+</body>
+</html>
