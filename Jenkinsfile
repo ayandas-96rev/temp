@@ -13,12 +13,12 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
         stage('Run Playwright Tests') {
             steps {
-                sh 'npx playwright test'
+                bat 'npx playwright test'
                 archiveArtifacts artifacts: 'test-results/*'
             }
         }
